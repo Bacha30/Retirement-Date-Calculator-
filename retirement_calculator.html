@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Retirement Date Calculator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            padding: 0;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            text-align: center;
+        }
+        input, button {
+            padding: 10px;
+            margin: 10px 0;
+            width: 100%;
+        }
+        button {
+            cursor: pointer;
+            background-color: #007BFF;
+            color: white;
+            border: none;
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 20px;
+            font-weight: bold;
+        }
+        .footer {
+            margin-top: 50px;
+            font-size: 0.9em;
+            color: gray;
+            text-align: center;
+        }
+        .footer a {
+            color: #007BFF;
+            text-decoration: none;
+        }
+        .footer a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Retirement Date Calculator</h1>
+        <p>Enter your Date of Birth (DD-MM-YYYY):</p>
+        <input type="date" id="dob" />
+        <button onclick="calculateRetirementDate()">Calculate Retirement Date</button>
+        <div class="result" id="result"></div>
+    </div>
+
+    <div class="footer">
+        <p>Developed by <a href="mailto:anonymousbacha30@gmail.com" target="_blank">Anonymous_bacha</a></p>
+        <p><a href="https://t.me/Anonymous_bacha" target="_blank">Click here to connect with me</a></p>
+    </div>
+
+    <script>
+        function calculateRetirementDate() {
+            const dobInput = document.getElementById("dob").value;
+
+            if (!dobInput) {
+                document.getElementById("result").textContent = "Please enter a valid date of birth.";
+                return;
+            }
+
+            const dob = new Date(dobInput);
+            const retirementAge = 60;
+            let retirementDate = new Date(dob);
+            retirementDate.setFullYear(dob.getFullYear() + retirementAge);
+
+            if (dob.getDate() === 1) {
+                retirementDate.setMonth(retirementDate.getMonth() - 1);
+            }
+
+            // Adjust to the last day of the retirement month
+            retirementDate.setDate(1); // Go to the 1st of the month
+            retirementDate.setMonth(retirementDate.getMonth() + 1); // Move to the next month
+            retirementDate.setDate(0); // Go back one day to the last day of the month
+
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById("result").textContent =
+                `Your retirement date is: ${retirementDate.toLocaleDateString(undefined, options)}`;
+        }
+    </script>
+</body>
+</html>
